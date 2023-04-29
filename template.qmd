@@ -9,14 +9,14 @@ author:
   qualifications: Nobel Prize, PhD
 email: mcurie.notreal@gmail.com
 phone: (03) 9905 2478
-department: Department of\newline Econometrics &\newline Business Statistics
-organization: Acme Corporation
+school: Department of\newline Econometrics &\newline Business Statistics
+organisation: Acme Corporation
 number-sections: true
 fig-height: 5
 fig-width: 8
-cite-method: biblatex
+cite-method: natbib #
 bibliography: references.bib
-biblio-style: authoryear-comp
+biblio-style: abbrvnat
 linestretch: 1.5
 format: report-pdf
 execute:

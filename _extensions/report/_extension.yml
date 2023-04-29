@@ -1,8 +1,8 @@
-title: Monash Working Paper Format Template
-author: Rob J Hyndman
+title: Macquarie Research Report Format Template
+author: Thomas Fung
 version: 0.1.0
 contributes:
   formats:
     pdf:
-      template: monashreport.tex
+      template: mqreport.tex
       pdf-engine: pdflatex

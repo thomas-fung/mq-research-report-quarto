@@ -2,33 +2,18 @@
 format: gfm
 ---
 
-<!-- README.md is generated from README.qmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit the qmd file only -->
 
-```{r}
-#| include: false
-# Create pdf and png version of template
-library(tidyverse)
-library(quarto)
-library(magick)
 
-# Render template
-fs::dir_copy("_extensions/report", "_extensions/numbats/report")
-fs::file_copy("examples/references.bib", "references.bib")
-quarto_render(input = "template.qmd")
-fs::dir_delete("_extensions/numbats")
-fs::file_delete("references.bib")
-# Convert rendered PDF to PNG
-image_read_pdf("template.pdf") |>
-  image_montage(geometry = "x2000+25+35", tile = "2x1", bg = "grey92", shadow = TRUE) |>
-  image_convert(format = "png") |>
-  image_write("examples/template.png")
-# Move pdf to examples folder
-fs::file_move("template.pdf", "examples/template.pdf")
-```
+# Macquarie University (Research/Consulting) Report Template <img src="https://user-images.githubusercontent.com/15133161/200966938-ba6f8413-fa77-4ccb-b16d-d7cf14926057.png" align ="right" alt="" width ="150"/>
 
-# Monash Report Format Template
+> Template for creating a new research report for Quarto. 
+>
+> See information about how-to use this repo template inside the template file.
 
-This is a Quarto template that assists you in creating a Monash University report.
+This is a Quarto template that assists you in creating a consulting/research report for use with Macquarie University branding. You can learn more about about Quarto using the official guide <https://quarto.org/docs/guide/>.
+
+This work is modified from the template of Rob J Hyndman @robjhyndman for Monash University.  
 
 ## Creating a new report
 
@@ -36,7 +21,7 @@ You can use this as a template to create a report.
 To do this, use the following command:
 
 ```bash
-quarto use template numbats/monash-quarto-report
+quarto use template thomas-fung/mq-research-report-quarto
 ```
 
 This will install the extension and create an example qmd file that you can use as a starting place for your report.
@@ -47,7 +32,7 @@ You may also use this format with an existing Quarto project or document.
 From the quarto project or document directory, run the following command to install this format:
 
 ```bash
-quarto install extension numbats/monash-quarto-report
+quarto install extension thomas-fung/mq-research-report-quarto
 ```
 
 ## Example

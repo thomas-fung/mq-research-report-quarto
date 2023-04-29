@@ -114,16 +114,6 @@ $for(polyglossia-otherlangs)$
 $endfor$
 \fi
 $endif$
-$if(natbib)$
-\usepackage{natbib}
-\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
-$endif$
-$if(biblatex)$
-\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
-$for(bibliography)$
-\addbibresource{$bibliography$}
-$endfor$
-$endif$
 $if(listings)$
 \usepackage{listings}
 $endif$
@@ -198,7 +188,16 @@ $endif$
 \def\fps@figure{htbp}
 \makeatother
 
-
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
 $if(title)$
 \title{$title$}
 $endif$
@@ -211,7 +210,7 @@ $if(institute)$
 \institute{$for(institute)$$institute$$sep$ \and $endfor$}
 $endif$
 
-%% MONASH STUFF
+%% Macquarie STUFF
 
 %% CAPTIONS
 \RequirePackage{caption}
@@ -223,7 +222,6 @@ $endif$
 
 %% FONT
 \RequirePackage{bera}
-\RequirePackage[charter,expert,sfscaled]{mathdesign}
 \RequirePackage{fontawesome}
 
 %% HEADERS AND FOOTERS
@@ -313,84 +311,37 @@ $endif$
 \usepackage[showonlyrefs]{mathtools}
 \usepackage[no-weekday]{eukdate}
 
-%% BIBLIOGRAPHY
-
-\makeatletter
-\@ifpackageloaded{biblatex}{}{\usepackage[style=authoryear-comp, backend=biber, natbib=true]{biblatex}}
-\makeatother
-\ExecuteBibliographyOptions{bibencoding=utf8,minnames=1,maxnames=3, maxbibnames=99,dashed=false,terseinits=true,giveninits=true,uniquename=false,uniquelist=false,doi=false, isbn=false,url=true,sortcites=false}
-
-\DeclareFieldFormat{url}{\texttt{\url{#1}}}
-\DeclareFieldFormat[article]{pages}{#1}
-\DeclareFieldFormat[inproceedings]{pages}{\lowercase{pp.}#1}
-\DeclareFieldFormat[incollection]{pages}{\lowercase{pp.}#1}
-\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
-\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
-\DeclareFieldFormat[article]{title}{\MakeCapital{#1}}
-\DeclareFieldFormat[article]{url}{}
-%\DeclareFieldFormat[book]{url}{}
-%\DeclareFieldFormat[inbook]{url}{}
-%\DeclareFieldFormat[incollection]{url}{}
-%\DeclareFieldFormat[inproceedings]{url}{}
-\DeclareFieldFormat[inproceedings]{title}{#1}
-\DeclareFieldFormat{shorthandwidth}{#1}
-%\DeclareFieldFormat{extrayear}{}
-% No dot before number of articles
-\usepackage{xpatch}
-\xpatchbibmacro{volume+number+eid}{\setunit*{\adddot}}{}{}{}
-% Remove In: for an article.
-\renewbibmacro{in:}{%
-  \ifentrytype{article}{}{%
-  \printtext{\bibstring{in}\intitlepunct}}}
-
-\AtEveryBibitem{\clearfield{month}}
-\AtEveryCitekey{\clearfield{month}}
-
-\makeatletter
-\DeclareDelimFormat[cbx@textcite]{nameyeardelim}{\addspace}
-\makeatother
-
-\author{\sf$for(author)${\Large\textbf{$if(author.title)$$author.title$ $endif$$author.othernames$ $author.familyname$}\\\large $author.qualifications$\\[0.5cm]}$endfor$}
-
-$if(date)$
-\date{$date$}
-$else$
-\date{\sf\Date~\Month~\Year}
-$endif$
-\makeatletter
-\lfoot{\sf $for(author)$$author.familyname$$sep$, $endfor$: \@date}
-\makeatother
 
 
 %%%% PAGE STYLE FOR FRONT PAGE OF REPORTS
 
 \makeatletter
-\def\organization#1{\gdef\@organization{#1}}
+\def\organisation#1{\gdef\@organisation{#1}}
 \def\telephone#1{\gdef\@telephone{#1}}
 \def\email#1{\gdef\@email{#1}}
 \makeatother
-$if(organization)$
-  \organization{$organization$}
+$if(organisation)$
+  \organisation{$organisation$}
 $else$
-  \organization{}
+  \organisation{}
 $endif$
 
-$if(department)$
-  \def\name{$department$}
+$if(school)$
+  \def\name{$school$}
 $else$
-  \def\name{Department of \hbox{Econometrics \&} \hbox{Business Statistics}}
+  \def\name{School of \hbox{Mathematical \&} \hbox{Physical Sciences}}
 $endif$
 
 $if(phone)$
   \telephone{$phone$}
 $else$
-  \telephone{(03) 9905 2478}
+  \telephone{(02) 9850 7273}
 $endif$
 
 $if(email)$
   \email{$email$}
 $else$
-  \email{BusEco-Econometrics@monash.edu}
+  \email{fse.maps-administration@mq.edu.au}
 $endif$
 
 \def\webaddress{\url{http://buseco.monash.edu/ebs/consulting/}}
@@ -411,31 +362,23 @@ $endif$
 
 \long\def\front#1#2#3{
 \newpage
-\begin{textblock}{7}(12.7,28.2)\hfill
-\includegraphics[height=0.6cm]{AACSB}~~~
-\includegraphics[height=0.6cm]{EQUIS}~~~
-\includegraphics[height=0.6cm]{AMBA}
-\end{textblock}
 \begin{singlespacing}
 \thispagestyle{empty}
 \vspace*{-1.4cm}
 \hspace*{-1.4cm}
 \hbox to 16cm{
   \hbox to 6.5cm{\vbox to 14cm{\vbox to 25cm{
-    \includegraphics[width=6cm]{monash2}
+    \includegraphics[width=6cm]{_extensions/thomas-fung/report/MQ-logo-col.png}
     \vfill
-    \includegraphics[width=2cm]{MBSportrait}
-    \vspace{0.4cm}
     \par
     \parbox{6.3cm}{\raggedright
-      \sf\color[rgb]{0.00,0.00,0.70}
+      \sf\color[rgb]{0.00,0.00,0.00}
       {\large\textbf{\name}}\par
       \vspace{.7cm}
       \tabcolsep=0.12cm\sf\small
       \begin{tabular}{@{}ll@{}}\contactdetails
       \end{tabular}
       \vspace*{0.3cm}\par
-      ABN: \abn\par
     }
   }\vss}\hss}
   \hspace*{0.2cm}
@@ -459,8 +402,9 @@ $endif$
 \newpage
 }
 
+
 \makeatletter
-\def\titlepage{\front{\expandafter{\@title}}{\@author}{\@organization}}
+\def\titlepage{\front{\expandafter{\@title}}{\@author}{\@organisation}}
 \makeatother
 
 $if(linestretch)$
@@ -512,10 +456,7 @@ $endif$
 
 $endif$
 $endif$
-$if(biblatex)$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
 
-$endif$
 $for(include-after)$
 $include-after$
 
